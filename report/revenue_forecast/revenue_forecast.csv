@@ -1,0 +1,4 @@
+month,last_month_baseline,log_linear_trend_scenario,selected_forecast,selected_model
+2026-04,3417.0,2857.18,3417.0,last_month_baseline
+2026-05,3417.0,1859.47,3417.0,last_month_baseline
+2026-06,3417.0,1210.04,3417.0,last_month_baseline

@@ -1,0 +1,17 @@
+{
+  "measure": "positive paid-payment amounts; not verified net or recognized sales",
+  "observed_start_month": "2025-01",
+  "observed_end_month": "2026-03",
+  "months_observed": 15,
+  "last_observed_paid_amount": 3417.0,
+  "directional_trend_scenario": "decreasing",
+  "selected_forecast_direction": "stable",
+  "latest_three_month_mean_change_vs_prior_three_months_pct": -69.98,
+  "negative_paid_amount_rows_excluded_from_forecast": 26,
+  "rolling_one_month_backtest_months": 6,
+  "last_month_baseline_mae": 5114.67,
+  "log_linear_trend_mae": 6907.09,
+  "selected_model_by_lowest_mae": "last_month_baseline",
+  "forecast_horizon_months": 3,
+  "data_disclosure": "Source dataset is synthetic; forecast is exploratory, not a real-sales prediction."
+}

@@ -8,6 +8,10 @@ Dataset selected and downloaded. This is a synthetic Kaggle learning dataset, no
 
 [Open the SaaS product analysis PDF](report/saas_product_analaysis.pdf). This is a static report; dashboard filters are not interactive in the PDF.
 
+## Exploratory Revenue Forecast
+
+The payment history contains 15 monthly periods through March 2026. The latest three-month average of positive paid amounts is 69.98% below the previous three-month average. Rolling backtests selected a last-month baseline over the declining trend scenario, so the model repeats `$3,417` for April-June 2026 while showing the trend scenario separately. The source is synthetic, contains negative rows labeled `paid`, and does not define recognized sales; these forecast months are now historical, so this is a forecasting-method demonstration, not a current sales prediction. See [forecast summary](report/revenue_forecast/revenue_forecast_summary.json) and the [Power BI guide](docs/power_bi_guide.md).
+
 ## Business Question
 
 Which user behaviors are associated with subscription conversion or customer drop-off?
@@ -50,6 +54,7 @@ The selected [Kaggle SaaS Customer Churn Dataset](https://www.kaggle.com/dataset
 - Dataset downloaded, inspected, and extracted to `data/raw`.
 - Python cleaning pipeline created; cleaned CSVs and a quality report are in `data/processed`.
 - Python dashboard audit cross-checks customer and subscription totals, observed churn, unique feature users, and incomplete latest-month activity. The current usage extract ends on December 17, 2025, so December is flagged as partial.
+- Exploratory paid-amount forecast added in Python. It compares a last-month baseline with a six-month trend and reports six rolling backtest errors. Payment history ends in March 2026, so its April-June 2026 output is a historical demonstration, not a current forecast.
 - Cleaning handles 810 invalid negative login counts transparently and generates a recovery CSV for the partially loaded MySQL usage table.
 - Integration test passes for duplicate removal, status/ID normalization, missing values, and foreign-key integrity.
 - MySQL schema and business-analysis queries are written; run them in Workbench to validate against the password-protected local server.
@@ -59,9 +64,14 @@ The selected [Kaggle SaaS Customer Churn Dataset](https://www.kaggle.com/dataset
 
 - `src/clean_data.py` — Pandas cleaning, validation, and import-safe recovery files for nullable dates and invalid negative counts
 - `src/dashboard_metrics.py` — verified monthly active users, feature adoption, plan status shares, and a partial-month warning for Power BI
+- `src/revenue_forecast.py` — monthly positive-paid-amount forecast with a baseline comparison, rolling backtest MAE, and negative-amount quality flags
 - `tests/test_clean_data.py` — focused data-quality regression test
 - `tests/test_dashboard_metrics.py` — dashboard metric and partial-month regression test
-- `requirements.txt` — Python dependency for rerunning the cleaning pipeline
+- `tests/test_revenue_forecast.py` — forecast behavior, baseline selection, and payment-quality regression test
+- `report/revenue_forecast/monthly_paid_revenue.csv` — monthly recorded and positive-only paid amounts with payment counts and negative-row flags
+- `report/revenue_forecast/revenue_forecast.csv` — baseline, declining trend scenario, and selected forecast
+- `report/revenue_forecast/revenue_forecast_summary.json` — model selection, backtest errors, direction, and data disclosures
+- `requirements.txt` — Python dependencies for rerunning the analysis
 - `docs/dataset_source.md` — dataset source, synthetic-data disclosure, and license note
 - `sql/01_schema.sql` — MySQL database and relational tables
 - `sql/02_business_analysis.sql` — DAU/MAU, feature/churn association, plan, payments, cohort, at-risk, and customer-value queries
@@ -78,7 +88,10 @@ From the project root, run the cleaning pipeline first, then build the dashboard
 ```powershell
 python -m src.clean_data
 python -m src.dashboard_metrics
+python -m src.revenue_forecast
 python -m unittest discover -s tests
 ```
 
 The dashboard audit writes `monthly_active_users.csv`, `feature_adoption.csv`, `subscription_status_by_plan.csv`, and `dashboard_audit.json` under `data/processed/dashboard_metrics`. Use `unique_users` rather than `usage_records` when charting customers by feature. Exclude or clearly flag the latest partial month when interpreting trends.
+
+The forecast writes `monthly_paid_revenue.csv`, `revenue_forecast.csv`, and `revenue_forecast_summary.json` under `report/revenue_forecast`. The forecast is based on synthetic payment records, not verified recognized sales. It excludes negative paid amounts from fitting while reporting their count, compares against a last-month baseline, and should not be presented as a reliable current business forecast.

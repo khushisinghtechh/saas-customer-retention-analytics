@@ -107,6 +107,8 @@ Show daily active users, monthly active users, recorded logins per active user, 
 
 Use plan-level subscription and observed-churn comparisons, payment outcomes over time, paid/refunded amounts, and engagement for customers with or without successful payments. Do not label this a trial-to-paid funnel: the dataset has no trial lifecycle fields.
 
+For a forecasting-method demonstration, import `report/revenue_forecast/monthly_paid_revenue.csv` and `report/revenue_forecast/revenue_forecast.csv` with **Get data > Text/CSV**. Plot `positive_paid_amount` as historical amounts and compare `selected_forecast` with `log_linear_trend_scenario` for the forecast period. Label the forecast cutoff as March 2026 and disclose that the source is synthetic, 26 negative paid rows are excluded from the forecast fit, and the values are payment records rather than verified recognized sales. The April-June 2026 forecast is now historical; do not present it as a current forecast.
+
 ### 4. Churn and Retention
 
 Show observed churn by plan/status, the SQL signup-cohort retention matrix, and the SQL at-risk review list. Add a support-ticket and inactivity view. Label risk flags as rule-based signals, not a prediction model.
