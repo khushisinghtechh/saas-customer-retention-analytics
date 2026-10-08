@@ -58,6 +58,14 @@
 
 **Business decision:** Use this as observed-value segmentation practice only. A real high-value customer program would define a time window, account for refunds, and validate future value before prioritizing service.
 
+## 8. Exploratory Paid-Amount Forecast Is Not a Current Sales Prediction
+
+**What happened?** The payment table has 15 monthly periods, from January 2025 through March 2026. The latest three-month average of positive paid amounts is 69.98% lower than the previous three-month average. Across six rolling one-month holdouts, the last-month baseline has an MAE of `$5,114.67`, better than the six-month log-linear trend's `$6,907.09`. The selected baseline therefore repeats March 2026's `$3,417` for April-June 2026; a separate declining-trend scenario is also exported for comparison.
+
+**Why might this matter?** The source is synthetic, only 15 monthly observations are available, 26 paid rows have negative amounts, and the latest data is from March 2026. The forecast periods are now historical, and actual later payment data is unavailable here for validation.
+
+**Business decision:** Treat this as a forecasting-method demonstration, not a claim about current or future sales. In real work, confirm recognized-revenue definitions, investigate negative paid rows, obtain up-to-date transactions, and compare several time-based backtests before using a forecast.
+
 ## Metric Boundaries
 
 - Trial-to-paid conversion cannot be calculated because there is no trial flag, trial date, or conversion event.
