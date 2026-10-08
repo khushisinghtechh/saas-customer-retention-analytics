@@ -1,0 +1,11 @@
+.venv/
+venv/
+data/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.log
+Thumbs.db
+Desktop.ini
