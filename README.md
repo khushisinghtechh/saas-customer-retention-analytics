@@ -4,6 +4,10 @@
 
 Dataset selected and downloaded. This is a synthetic Kaggle learning dataset, not real customer data. Raw CSVs are in `data/raw`; cleaned outputs are in `data/processed`.
 
+## Dashboard Report
+
+[Open the SaaS product analysis PDF](report/saas_product_analaysis.pdf). This is a static report; dashboard filters are not interactive in the PDF.
+
 ## Business Question
 
 Which user behaviors are associated with subscription conversion or customer drop-off?
